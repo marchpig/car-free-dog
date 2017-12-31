@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.marchpig.carfreedog.MainActivity">
+
+    <TextView
+        android:id="@+id/carNumberTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/carNumberSpinner"
+        android:layout_marginLeft="35dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="0dp"
+        android:text="@string/car_number"
+        android:textAppearance="@style/TextAppearance.AppCompat" />
+
+    <Spinner
+        android:id="@+id/carNumberSpinner"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="30dp"
+        android:dropDownWidth="match_parent" />
+
+    <Switch
+        android:id="@+id/preAlarmSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/carNumberSpinner"
+        android:layout_alignLeft="@+id/carNumberTextView"
+        android:layout_alignRight="@+id/carNumberSpinner"
+        android:layout_alignStart="@+id/carNumberTextView"
+        android:layout_below="@+id/carNumberSpinner"
+        android:layout_marginTop="40dp"
+        android:checked="true"
+        android:text="@string/pre_alarm" />
+
+    <Switch
+        android:id="@+id/dayAlarmSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/preAlarmSwitch"
+        android:layout_alignLeft="@+id/preAlarmSwitch"
+        android:layout_alignRight="@+id/preAlarmSwitch"
+        android:layout_alignStart="@+id/preAlarmSwitch"
+        android:layout_below="@+id/preAlarmSwitch"
+        android:layout_marginTop="15dp"
+        android:checked="true"
+        android:text="@string/day_alarm" />
+
+    <Switch
+        android:id="@+id/alarmHolidaySwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/dayAlarmSwitch"
+        android:layout_alignLeft="@+id/dayAlarmSwitch"
+        android:layout_alignRight="@+id/dayAlarmSwitch"
+        android:layout_alignStart="@+id/dayAlarmSwitch"
+        android:layout_below="@+id/dayAlarmSwitch"
+        android:layout_marginTop="15dp"
+        android:checked="false"
+        android:text="@string/alarm_holiday" />
+
+</RelativeLayout>

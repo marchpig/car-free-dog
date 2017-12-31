@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">10부제 알림이</string>
+    <string name="car_number">차번호 끝자리</string>
+    <string name="pre_alarm">전날 밤 10시</string>
+    <string name="day_alarm">당일 아침 7시</string>
+    <string name="alarm_holiday">휴일 포함</string>
+    <string name="noti_title_pre_alarm">내일 10부제</string>
+    <string name="noti_text_pre_alarm">내일은 10부제 날입니다!</string>
+    <string name="noti_title_day_alarm">오늘 10부제</string>
+    <string name="noti_text_day_alarm">오늘은 10부제 날입니다!</string>
+
+    <string-array name="car_number_array">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </string-array>
+</resources>
