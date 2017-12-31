@@ -77,19 +77,21 @@ class AlarmReceiver : BroadcastReceiver(), AnkoLogger {
     private fun registerAlarm(context: Context, preAlarmTime: Calendar, dayAlarmTime: Calendar) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        PendingIntent.getBroadcast(
-                context,
-                Constants.PRE_ALARM_ID,
-                Intent(Constants.ACTION_NOTIFY_PRE_ALARM),
-                PendingIntent.FLAG_UPDATE_CURRENT
-        ).let {
-            AlarmManagerCompat.setExact(
-                    alarmManager,
-                    AlarmManager.RTC_WAKEUP,
-                    preAlarmTime.timeInMillis,
-                    it
-            )
-            info {"Pre alarm registered at ${preAlarmTime.time}"}
+        if (preAlarmTime > Calendar.getInstance()) {
+            PendingIntent.getBroadcast(
+                    context,
+                    Constants.PRE_ALARM_ID,
+                    Intent(Constants.ACTION_NOTIFY_PRE_ALARM),
+                    PendingIntent.FLAG_UPDATE_CURRENT
+            ).let {
+                AlarmManagerCompat.setExact(
+                        alarmManager,
+                        AlarmManager.RTC_WAKEUP,
+                        preAlarmTime.timeInMillis,
+                        it
+                )
+                info { "Pre alarm registered at ${preAlarmTime.time}" }
+            }
         }
 
         PendingIntent.getBroadcast(
