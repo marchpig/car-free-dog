@@ -27,6 +27,33 @@ class AlarmSettings(private val preference: SharedPreferences,
         }
     }
 
+    fun updatePreAlarmButtonText() {
+        val text = getZeroPaddedString(getPreAlarmHourOfDay()) +
+                ":" + getZeroPaddedString(getPreAlarmMinute())
+        alarmSettingsWidgets.preAlarmButton.text = text
+    }
+
+    fun updateDayAlarmButtonText() {
+        val text = getZeroPaddedString(getDayAlarmHourOfDay()) +
+                ":" + getZeroPaddedString(getDayAlarmMinute())
+        alarmSettingsWidgets.dayAlarmButton.text = text
+    }
+
+    fun getPreAlarmHourOfDay() =
+            preference.getInt(Constants.PRE_ALARM_HOUR, Constants.PRE_ALARM_HOUR_DEFAULT)
+
+    fun getPreAlarmMinute() =
+            preference.getInt(Constants.PRE_ALARM_MINUTE, Constants.PRE_ALARM_MINUTE_DEFAULT)
+
+    fun getDayAlarmHourOfDay() =
+            preference.getInt(Constants.DAY_ALARM_HOUR, Constants.DAY_ALARM_HOUR_DEFAULT)
+
+    fun getDayAlarmMinute() =
+            preference.getInt(Constants.DAY_ALARM_MINUTE, Constants.DAY_ALARM_MINUTE_DEFAULT)
+
+    private fun getZeroPaddedString(digit: Int) =
+            digit.toString().padStart(2, '0')
+
     fun save() {
         with(alarmSettingsWidgets) {
             preference.edit().let {

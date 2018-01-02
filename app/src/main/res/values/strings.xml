@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">10부제 알림이</string>
     <string name="car_number">차번호 끝자리</string>
-    <string name="pre_alarm">전날 밤 10시</string>
-    <string name="day_alarm">당일 아침 7시</string>
+    <string name="pre_alarm">전날</string>
+    <string name="day_alarm">당일</string>
     <string name="alarm_holiday">휴일 포함</string>
     <string name="noti_title_pre_alarm">내일 10부제</string>
     <string name="noti_text_pre_alarm">내일은 10부제 날입니다!</string>

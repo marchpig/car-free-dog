@@ -1,11 +1,12 @@
 package com.marchpig.carfreedog
 
-import android.widget.Spinner
-import android.widget.Switch
+import android.widget.*
 
 data class AlarmSettingsWidgets(
         val carNumberSpinner: Spinner,
         val preAlarmSwitch: Switch,
         val dayAlarmSwitch: Switch,
-        val alarmHolidaySwitch: Switch
+        val alarmHolidaySwitch: Switch,
+        val preAlarmButton: Button,
+        val dayAlarmButton: Button
 )

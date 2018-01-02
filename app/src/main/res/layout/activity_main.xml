@@ -69,4 +69,28 @@
         android:checked="false"
         android:text="@string/alarm_holiday" />
 
+    <Button
+        android:id="@+id/preAlarmButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/preAlarmSwitch"
+        android:layout_alignBottom="@+id/preAlarmSwitch"
+        android:layout_alignLeft="@+id/preAlarmSwitch"
+        android:layout_alignStart="@+id/preAlarmSwitch"
+        android:layout_marginLeft="36dp"
+        android:layout_marginStart="36dp"
+        android:text="" />
+
+    <Button
+        android:id="@+id/dayAlarmButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/dayAlarmSwitch"
+        android:layout_alignBottom="@+id/dayAlarmSwitch"
+        android:layout_alignLeft="@+id/dayAlarmSwitch"
+        android:layout_alignStart="@+id/dayAlarmSwitch"
+        android:layout_marginLeft="36dp"
+        android:layout_marginStart="36dp"
+        android:text="" />
+
 </RelativeLayout>
