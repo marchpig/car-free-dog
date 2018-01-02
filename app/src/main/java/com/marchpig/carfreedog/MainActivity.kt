@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         val carNumbers = resources.getStringArray(R.array.car_number_array)
         alarmSettings = AlarmSettings(preference, alarmSettingsWidgets, carNumbers)
         setTimePickerFragmentToButtons(preference, alarmSettings)
-        setButtonTextChangeListener(preference, alarmSettings)
         setGithubLink()
     }
 
@@ -65,18 +64,6 @@ class MainActivity : AppCompatActivity() {
                 it.preference = preference
                 it.alarmSettings = alarmSettings
                 it.show(supportFragmentManager, Constants.DAY_ALARM)
-            }
-        }
-    }
-
-    private fun setButtonTextChangeListener(preference: SharedPreferences,
-                                            alarmSettings: AlarmSettings?) {
-        preference.registerOnSharedPreferenceChangeListener { _, key ->
-            when (key) {
-                Constants.PRE_ALARM_HOUR, Constants.PRE_ALARM_MINUTE ->
-                    alarmSettings?.updatePreAlarmButtonText()
-                Constants.DAY_ALARM_HOUR, Constants.DAY_ALARM_MINUTE ->
-                    alarmSettings?.updateDayAlarmButtonText()
             }
         }
     }

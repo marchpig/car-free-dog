@@ -28,7 +28,8 @@ class DayAlarmTimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetL
         preference?.edit().let {
             it?.putInt(Constants.DAY_ALARM_HOUR, hourOfDay)
             it?.putInt(Constants.DAY_ALARM_MINUTE, minute)
-            it?.apply()
+            it?.commit()
+            alarmSettings?.updateDayAlarmButtonText()
         }
     }
 }

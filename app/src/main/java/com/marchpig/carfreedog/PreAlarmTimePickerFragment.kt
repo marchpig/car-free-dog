@@ -28,7 +28,8 @@ class PreAlarmTimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetL
         preference?.edit().let {
             it?.putInt(Constants.PRE_ALARM_HOUR, hourOfDay)
             it?.putInt(Constants.PRE_ALARM_MINUTE, minute)
-            it?.apply()
+            it?.commit()
+            alarmSettings?.updatePreAlarmButtonText()
         }
     }
 }
