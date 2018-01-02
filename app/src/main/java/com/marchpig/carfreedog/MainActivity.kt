@@ -1,6 +1,7 @@
 package com.marchpig.carfreedog
 
 import android.content.*
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         alarmSettings = AlarmSettings(preference, alarmSettingsWidgets, carNumbers)
         setTimePickerFragmentToButtons(preference, alarmSettings)
         setButtonTextChangeListener(preference, alarmSettings)
+        setGithubLink()
     }
 
     override fun onResume() {
@@ -76,6 +78,15 @@ class MainActivity : AppCompatActivity() {
                 Constants.DAY_ALARM_HOUR, Constants.DAY_ALARM_MINUTE ->
                     alarmSettings?.updateDayAlarmButtonText()
             }
+        }
+    }
+
+    private fun setGithubLink() {
+        githubLinkTextView.onClick {
+            startActivity(Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(resources.getString(R.string.github_url))
+            ))
         }
     }
 }

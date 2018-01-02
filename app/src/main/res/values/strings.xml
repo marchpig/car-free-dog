@@ -8,6 +8,7 @@
     <string name="noti_text_pre_alarm">내일은 10부제 날입니다!</string>
     <string name="noti_title_day_alarm">오늘 10부제</string>
     <string name="noti_text_day_alarm">오늘은 10부제 날입니다!</string>
+    <string name="github_url">https://github.com/marchpig/car-free-dog</string>
 
     <string-array name="car_number_array">
         <item>0</item>
