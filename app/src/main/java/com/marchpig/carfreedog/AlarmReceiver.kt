@@ -1,11 +1,13 @@
 package com.marchpig.carfreedog
 
 import android.app.*
+import android.arch.persistence.room.Room
 import android.content.*
 import android.graphics.Color
 import android.media.RingtoneManager
 import android.support.v4.app.*
 import android.support.v7.app.AppCompatActivity
+import com.marchpig.carfreedog.data.AppDatabase
 import org.jetbrains.anko.*
 import java.util.*
 
@@ -14,7 +16,13 @@ class AlarmReceiver : BroadcastReceiver(), AnkoLogger {
     override fun onReceive(context: Context, intent: Intent) {
         val preference = context.getSharedPreferences(Constants.PREFS_NAME,
                 AppCompatActivity.MODE_PRIVATE)
-        val dayAlarmTime = AlarmTimer(preference).getNextTime(Calendar.getInstance())?: return
+        val holidayDao = Room
+                .databaseBuilder(context, AppDatabase::class.java, Constants.DB_NAME)
+                .allowMainThreadQueries() // TODO: Should not allow it
+                .build()
+                .holidayDao()
+        val dayAlarmTime = AlarmTimer(holidayDao, preference)
+                .getNextTime(Calendar.getInstance())?: return
         val preAlarmTime = createPreAlarmTime(preference, dayAlarmTime.clone() as Calendar)
 
         when (intent.action) {
@@ -109,4 +117,6 @@ class AlarmReceiver : BroadcastReceiver(), AnkoLogger {
             info {"Day alarm registered at ${dayAlarmTime.time}"}
         }
     }
+
+
 }

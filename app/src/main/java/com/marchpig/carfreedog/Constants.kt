@@ -2,6 +2,7 @@ package com.marchpig.carfreedog
 
 object Constants {
     const val PREFS_NAME = "carfreedog"
+    const val DB_NAME = "carfreedog"
 
     const val CAR_NUMBER = "carNumber"
     const val PRE_ALARM = "preAlarm"

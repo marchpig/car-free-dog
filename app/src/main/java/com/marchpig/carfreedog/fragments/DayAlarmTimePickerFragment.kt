@@ -1,4 +1,4 @@
-package com.marchpig.carfreedog
+package com.marchpig.carfreedog.fragments
 
 import android.app.*
 import android.content.SharedPreferences
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.text.format.DateFormat
 import android.widget.TimePicker
+import com.marchpig.carfreedog.*
 
 class DayAlarmTimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener {
 

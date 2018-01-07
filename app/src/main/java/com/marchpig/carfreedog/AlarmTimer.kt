@@ -1,10 +1,11 @@
 package com.marchpig.carfreedog
 
 import android.content.SharedPreferences
+import com.marchpig.carfreedog.data.HolidayDao
 import org.jetbrains.anko.*
 import java.util.*
 
-class AlarmTimer(preference: SharedPreferences) : AnkoLogger {
+class AlarmTimer(holidayDao: HolidayDao, preference: SharedPreferences) : AnkoLogger {
 
     private val carNumber = preference.getInt(Constants.CAR_NUMBER, -1)
     private val dayAlarmHour = preference.getInt(
@@ -19,6 +20,7 @@ class AlarmTimer(preference: SharedPreferences) : AnkoLogger {
             Constants.ALARM_HOLIDAY,
             Constants.ALARM_HOLIDAY_DEFAULT
     )
+    private val holidayChecker = HolidayChecker(holidayDao)
 
     fun getNextTime(calendar: Calendar): Calendar? {
         if (carNumber == -1) {
@@ -63,13 +65,6 @@ class AlarmTimer(preference: SharedPreferences) : AnkoLogger {
     private fun isInvalidTime(calendar: Calendar): Boolean {
         if (calendar.get(Calendar.DAY_OF_MONTH) == 31)
             return true
-        return if (alarmHoliday) false else isHoliday(calendar)
+        return if (alarmHoliday) false else holidayChecker.isHoliday(calendar)
     }
-
-    private fun isHoliday(calendar: Calendar): Boolean {
-        // TODO: Check national holiday by using https://www.data.go.kr/
-        val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
-        return dayOfWeek == Calendar.SUNDAY || dayOfWeek == Calendar.SATURDAY
-    }
-
 }
