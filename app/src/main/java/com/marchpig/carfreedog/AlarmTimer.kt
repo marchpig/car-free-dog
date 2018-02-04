@@ -1,11 +1,12 @@
 package com.marchpig.carfreedog
 
 import android.content.SharedPreferences
-import com.marchpig.carfreedog.data.HolidayDao
 import org.jetbrains.anko.*
 import java.util.*
 
-class AlarmTimer(holidayDao: HolidayDao, preference: SharedPreferences) : AnkoLogger {
+class AlarmTimer(
+        private val holidayChecker: HolidayChecker,
+        preference: SharedPreferences) : AnkoLogger {
 
     private val carNumber = preference.getInt(Constants.CAR_NUMBER, -1)
     private val dayAlarmHour = preference.getInt(
@@ -20,7 +21,6 @@ class AlarmTimer(holidayDao: HolidayDao, preference: SharedPreferences) : AnkoLo
             Constants.ALARM_HOLIDAY,
             Constants.ALARM_HOLIDAY_DEFAULT
     )
-    private val holidayChecker = HolidayChecker(holidayDao)
 
     fun getNextTime(calendar: Calendar): Calendar? {
         if (carNumber == -1) {

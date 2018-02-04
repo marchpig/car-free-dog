@@ -18,6 +18,7 @@ class AlarmTimerTest {
     private val pref_4_7_0_T = mock(SharedPreferences::class.java)
     private val pref_4_8_30_T = mock(SharedPreferences::class.java)
     private val holidayDao = mock(HolidayDao::class.java)
+    private val holidayChecker = HolidayChecker(holidayDao)
 
     @Before
     fun before() {
@@ -99,7 +100,7 @@ class AlarmTimerTest {
 
     @Test
     fun getNextTime_WhenCarNumberIsNotSet_ReturnsNull() {
-        assertNull(AlarmTimer(holidayDao, prefNotSet).getNextTime(Calendar.getInstance()))
+        assertNull(AlarmTimer(holidayChecker, prefNotSet).getNextTime(Calendar.getInstance()))
     }
 
     @Test
@@ -107,16 +108,16 @@ class AlarmTimerTest {
         val calendar = Calendar.getInstance()
         calendar.set(2017,11,30, 8, 30) // 2017 Dec 30th, 08:30
 
-        val nextTime1 = AlarmTimer(holidayDao, pref_0_9_15_F).getNextTime(calendar)
+        val nextTime1 = AlarmTimer(holidayChecker, pref_0_9_15_F).getNextTime(calendar)
         assertEquals("2018_0_10_9_15_0", nextTime1!!.toStringForAssert())
 
-        val nextTime2 = AlarmTimer(holidayDao, pref_0_9_15_F).getNextTime(nextTime1)
+        val nextTime2 = AlarmTimer(holidayChecker, pref_0_9_15_F).getNextTime(nextTime1)
         assertEquals("2018_0_30_9_15_0", nextTime2!!.toStringForAssert())
 
-        val nextTime3 = AlarmTimer(holidayDao, pref_0_9_15_F).getNextTime(nextTime2)
+        val nextTime3 = AlarmTimer(holidayChecker, pref_0_9_15_F).getNextTime(nextTime2)
         assertEquals("2018_1_20_9_15_0", nextTime3!!.toStringForAssert())
 
-        val nextTime4 = AlarmTimer(holidayDao, pref_0_9_15_F).getNextTime(nextTime3)
+        val nextTime4 = AlarmTimer(holidayChecker, pref_0_9_15_F).getNextTime(nextTime3)
         assertEquals("2018_2_20_9_15_0", nextTime4!!.toStringForAssert())
     }
 
@@ -125,17 +126,17 @@ class AlarmTimerTest {
         val calendar = Calendar.getInstance()
         calendar.set(2017,11,30, 17, 30) // 2017 Dec 30th, 17:30
 
-        val nextTime1 = AlarmTimer(holidayDao, pref_1_13_0_F).getNextTime(calendar)
-        assertEquals("2018_0_1_13_0_0", nextTime1!!.toStringForAssert())
+        val nextTime1 = AlarmTimer(holidayChecker, pref_1_13_0_F).getNextTime(calendar)
+        assertEquals("2018_0_11_13_0_0", nextTime1!!.toStringForAssert())
 
-        val nextTime2 = AlarmTimer(holidayDao, pref_1_13_0_F).getNextTime(nextTime1)
-        assertEquals("2018_0_11_13_0_0", nextTime2!!.toStringForAssert())
+        val nextTime2 = AlarmTimer(holidayChecker, pref_1_13_0_F).getNextTime(nextTime1)
+        assertEquals("2018_1_1_13_0_0", nextTime2!!.toStringForAssert())
 
-        val nextTime3 = AlarmTimer(holidayDao, pref_1_13_0_F).getNextTime(nextTime2)
-        assertEquals("2018_1_1_13_0_0", nextTime3!!.toStringForAssert())
+        val nextTime3 = AlarmTimer(holidayChecker, pref_1_13_0_F).getNextTime(nextTime2)
+        assertEquals("2018_1_21_13_0_0", nextTime3!!.toStringForAssert())
 
-        val nextTime4 = AlarmTimer(holidayDao, pref_1_13_0_F).getNextTime(nextTime3)
-        assertEquals("2018_1_21_13_0_0", nextTime4!!.toStringForAssert())
+        val nextTime4 = AlarmTimer(holidayChecker, pref_1_13_0_F).getNextTime(nextTime3)
+        assertEquals("2018_2_21_13_0_0", nextTime4!!.toStringForAssert())
     }
 
     @Test
@@ -143,16 +144,16 @@ class AlarmTimerTest {
         val calendar = Calendar.getInstance()
         calendar.set(2017,11,30, 17, 30) // 2017 Dec 30th, 17:30
 
-        val nextTime1 = AlarmTimer(holidayDao, pref_4_7_0_F).getNextTime(calendar)
+        val nextTime1 = AlarmTimer(holidayChecker, pref_4_7_0_F).getNextTime(calendar)
         assertEquals("2018_0_4_7_0_0", nextTime1!!.toStringForAssert())
 
-        val nextTime2 = AlarmTimer(holidayDao, pref_4_7_0_F).getNextTime(nextTime1)
+        val nextTime2 = AlarmTimer(holidayChecker, pref_4_7_0_F).getNextTime(nextTime1)
         assertEquals("2018_0_24_7_0_0", nextTime2!!.toStringForAssert())
 
-        val nextTime3 = AlarmTimer(holidayDao, pref_4_8_30_F).getNextTime(nextTime2)
+        val nextTime3 = AlarmTimer(holidayChecker, pref_4_8_30_F).getNextTime(nextTime2)
         assertEquals("2018_0_24_8_30_0", nextTime3!!.toStringForAssert())
 
-        val nextTime4 = AlarmTimer(holidayDao, pref_4_7_0_F).getNextTime(nextTime3)
+        val nextTime4 = AlarmTimer(holidayChecker, pref_4_7_0_F).getNextTime(nextTime3)
         assertEquals("2018_1_14_7_0_0", nextTime4!!.toStringForAssert())
     }
 
@@ -161,16 +162,16 @@ class AlarmTimerTest {
         val calendar = Calendar.getInstance()
         calendar.set(2017,11,30, 8, 30) // 2017 Dec 30th, 08:30
 
-        val nextTime1 = AlarmTimer(holidayDao, pref_0_9_15_T).getNextTime(calendar)
+        val nextTime1 = AlarmTimer(holidayChecker, pref_0_9_15_T).getNextTime(calendar)
         assertEquals("2017_11_30_9_15_0", nextTime1!!.toStringForAssert())
 
-        val nextTime2 = AlarmTimer(holidayDao, pref_0_9_15_T).getNextTime(nextTime1)
+        val nextTime2 = AlarmTimer(holidayChecker, pref_0_9_15_T).getNextTime(nextTime1)
         assertEquals("2018_0_10_9_15_0", nextTime2!!.toStringForAssert())
 
-        val nextTime3 = AlarmTimer(holidayDao, pref_0_9_15_T).getNextTime(nextTime2)
+        val nextTime3 = AlarmTimer(holidayChecker, pref_0_9_15_T).getNextTime(nextTime2)
         assertEquals("2018_0_20_9_15_0", nextTime3!!.toStringForAssert())
 
-        val nextTime4 = AlarmTimer(holidayDao, pref_0_9_15_T).getNextTime(nextTime3)
+        val nextTime4 = AlarmTimer(holidayChecker, pref_0_9_15_T).getNextTime(nextTime3)
         assertEquals("2018_0_30_9_15_0", nextTime4!!.toStringForAssert())
     }
 
@@ -179,16 +180,16 @@ class AlarmTimerTest {
         val calendar = Calendar.getInstance()
         calendar.set(2017,11,30, 17, 30) // 2017 Dec 30th, 17:30
 
-        val nextTime1 = AlarmTimer(holidayDao, pref_1_13_0_T).getNextTime(calendar)
+        val nextTime1 = AlarmTimer(holidayChecker, pref_1_13_0_T).getNextTime(calendar)
         assertEquals("2018_0_1_13_0_0", nextTime1!!.toStringForAssert())
 
-        val nextTime2 = AlarmTimer(holidayDao, pref_1_13_0_T).getNextTime(nextTime1)
+        val nextTime2 = AlarmTimer(holidayChecker, pref_1_13_0_T).getNextTime(nextTime1)
         assertEquals("2018_0_11_13_0_0", nextTime2!!.toStringForAssert())
 
-        val nextTime3 = AlarmTimer(holidayDao, pref_1_13_0_T).getNextTime(nextTime2)
+        val nextTime3 = AlarmTimer(holidayChecker, pref_1_13_0_T).getNextTime(nextTime2)
         assertEquals("2018_0_21_13_0_0", nextTime3!!.toStringForAssert())
 
-        val nextTime4 = AlarmTimer(holidayDao, pref_1_13_0_T).getNextTime(nextTime3)
+        val nextTime4 = AlarmTimer(holidayChecker, pref_1_13_0_T).getNextTime(nextTime3)
         assertEquals("2018_1_1_13_0_0", nextTime4!!.toStringForAssert())
     }
 
@@ -197,16 +198,16 @@ class AlarmTimerTest {
         val calendar = Calendar.getInstance()
         calendar.set(2017,11,30, 17, 30) // 2017 Dec 30th, 17:30
 
-        val nextTime1 = AlarmTimer(holidayDao, pref_4_7_0_T).getNextTime(calendar)
+        val nextTime1 = AlarmTimer(holidayChecker, pref_4_7_0_T).getNextTime(calendar)
         assertEquals("2018_0_4_7_0_0", nextTime1!!.toStringForAssert())
 
-        val nextTime2 = AlarmTimer(holidayDao, pref_4_7_0_T).getNextTime(nextTime1)
+        val nextTime2 = AlarmTimer(holidayChecker, pref_4_7_0_T).getNextTime(nextTime1)
         assertEquals("2018_0_14_7_0_0", nextTime2!!.toStringForAssert())
 
-        val nextTime3 = AlarmTimer(holidayDao, pref_4_8_30_T).getNextTime(nextTime2)
+        val nextTime3 = AlarmTimer(holidayChecker, pref_4_8_30_T).getNextTime(nextTime2)
         assertEquals("2018_0_14_8_30_0", nextTime3!!.toStringForAssert())
 
-        val nextTime4 = AlarmTimer(holidayDao, pref_4_7_0_T).getNextTime(nextTime3)
+        val nextTime4 = AlarmTimer(holidayChecker, pref_4_7_0_T).getNextTime(nextTime3)
         assertEquals("2018_0_24_7_0_0", nextTime4!!.toStringForAssert())
     }
 
@@ -215,19 +216,19 @@ class AlarmTimerTest {
         val calendar = Calendar.getInstance()
         calendar.set(2018,2,8, 6, 0) // 2018 Mar 8th, 06:00
 
-        val nextTime1 = AlarmTimer(holidayDao, pref_4_7_0_T).getNextTime(calendar)
+        val nextTime1 = AlarmTimer(holidayChecker, pref_4_7_0_T).getNextTime(calendar)
         assertEquals("2018_2_14_7_0_0", nextTime1!!.toStringForAssert())
 
-        val nextTime2 = AlarmTimer(holidayDao, pref_4_8_30_F).getNextTime(nextTime1)
+        val nextTime2 = AlarmTimer(holidayChecker, pref_4_8_30_F).getNextTime(nextTime1)
         assertEquals("2018_2_14_8_30_0", nextTime2!!.toStringForAssert())
 
-        val nextTime3 = AlarmTimer(holidayDao, pref_0_9_15_T).getNextTime(nextTime2)
+        val nextTime3 = AlarmTimer(holidayChecker, pref_0_9_15_T).getNextTime(nextTime2)
         assertEquals("2018_2_20_9_15_0", nextTime3!!.toStringForAssert())
 
-        val nextTime4 = AlarmTimer(holidayDao, pref_1_13_0_F).getNextTime(nextTime3)
+        val nextTime4 = AlarmTimer(holidayChecker, pref_1_13_0_F).getNextTime(nextTime3)
         assertEquals("2018_2_21_13_0_0", nextTime4!!.toStringForAssert())
 
-        val nextTime5 = AlarmTimer(holidayDao, pref_4_7_0_T).getNextTime(nextTime4)
+        val nextTime5 = AlarmTimer(holidayChecker, pref_4_7_0_T).getNextTime(nextTime4)
         assertEquals("2018_2_24_7_0_0", nextTime5!!.toStringForAssert())
     }
 

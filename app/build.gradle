@@ -36,7 +36,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile "org.jetbrains.anko:anko:$anko_version"
+    compile 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.1'
     testCompile "org.mockito:mockito-core:2.+"
+    testCompile "io.mockk:mockk:1.7"
     implementation "android.arch.persistence.room:runtime:1.0.0"
     kapt "android.arch.persistence.room:compiler:1.0.0"
 }

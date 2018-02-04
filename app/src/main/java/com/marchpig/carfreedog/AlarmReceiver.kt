@@ -8,23 +8,21 @@ import android.media.RingtoneManager
 import android.support.v4.app.*
 import android.support.v7.app.AppCompatActivity
 import com.marchpig.carfreedog.data.AppDatabase
+import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.*
 import java.util.*
 
 class AlarmReceiver : BroadcastReceiver(), AnkoLogger {
 
-    override fun onReceive(context: Context, intent: Intent) {
+    override fun onReceive(context: Context, intent: Intent) { launch {
         val preference = context.getSharedPreferences(Constants.PREFS_NAME,
                 AppCompatActivity.MODE_PRIVATE)
-        val holidayDao = Room
+        val db = Room
                 .databaseBuilder(context, AppDatabase::class.java, Constants.DB_NAME)
-                .allowMainThreadQueries() // TODO: Should not allow it
                 .build()
-                .holidayDao()
-        val dayAlarmTime = AlarmTimer(holidayDao, preference)
-                .getNextTime(Calendar.getInstance())?: return
+        val dayAlarmTime = AlarmTimer(HolidayChecker(db.holidayDao()), preference)
+                .getNextTime(Calendar.getInstance())?: return@launch
         val preAlarmTime = createPreAlarmTime(preference, dayAlarmTime.clone() as Calendar)
-
         when (intent.action) {
             Constants.ACTION_REGISTER_ALARM,
             Constants.ACTION_BOOT_COMPLETED -> {
@@ -42,7 +40,8 @@ class AlarmReceiver : BroadcastReceiver(), AnkoLogger {
                 registerAlarm(context, preAlarmTime, dayAlarmTime)
             }
         }
-    }
+        db.close()
+    }}
 
     private fun createPreAlarmTime(preference: SharedPreferences,
                                    dayAlarmTime: Calendar): Calendar {

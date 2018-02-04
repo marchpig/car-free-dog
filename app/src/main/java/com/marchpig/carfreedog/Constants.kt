@@ -29,4 +29,6 @@ object Constants {
     const val ACTION_NOTIFY_PRE_ALARM = "com.marchpig.carfreedog.NOTIFY_PRE_ALARM"
     const val ACTION_NOTIFY_DAY_ALARM = "com.marchpig.carfreedog.NOTIFY_DAY_ALARM"
     const val ACTION_BOOT_COMPLETED = "android.intent.action.BOOT_COMPLETED"
+
+    const val DATA_GO_KR_SERVICE_KEY = "secret"
 }

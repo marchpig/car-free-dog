@@ -1,6 +1,7 @@
 package com.marchpig.carfreedog
 
-import com.marchpig.carfreedog.data.HolidayDao
+import com.marchpig.carfreedog.data.*
+import io.mockk.*
 import org.junit.*
 import org.junit.Assert.*
 import org.mockito.Mockito.*
@@ -36,9 +37,30 @@ class HolidayCheckerTest {
     }
 
     @Test
+    fun isHoliday_WhenNationalHolidayIsPassedAndDataOfTheMonthNotInDB() {
+        objectMockk(NationalHolidayProvider).use {
+            every { NationalHolidayProvider.get(2018, 1) } returns arrayListOf(
+                    Holiday(2018, 1, 0),
+                    Holiday(2018, 1, 1)
+            )
+            Calendar.getInstance().apply { set(2018, 0, 1) }.let {
+                assertTrue(HolidayChecker(holidayDao).isHoliday(it))
+            }
+        }
+        verify(holidayDao, times(1)).findByYearAndMonth(anyInt(), anyInt())
+        verify(holidayDao, times(1)).insertAll(anyList())
+    }
+
+    @Test
     fun isHoliday_WhenWeekdayIsPassedAndDataOfTheMonthNotInDB() {
-        Calendar.getInstance().apply { set(2018, 0, 2) }.let {
-            assertFalse(HolidayChecker(holidayDao).isHoliday(it))
+        objectMockk(NationalHolidayProvider).use {
+            every { NationalHolidayProvider.get(2018, 1) } returns arrayListOf(
+                    Holiday(2018, 1, 0),
+                    Holiday(2018, 1, 1)
+            )
+            Calendar.getInstance().apply { set(2018, 0, 2) }.let {
+                assertFalse(HolidayChecker(holidayDao).isHoliday(it))
+            }
         }
         verify(holidayDao, times(1)).findByYearAndMonth(anyInt(), anyInt())
         verify(holidayDao, times(1)).insertAll(anyList())

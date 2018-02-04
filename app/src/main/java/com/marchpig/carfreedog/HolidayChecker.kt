@@ -1,9 +1,7 @@
 package com.marchpig.carfreedog
 
-import com.marchpig.carfreedog.data.Holiday
 import com.marchpig.carfreedog.data.HolidayDao
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.debug
+import org.jetbrains.anko.*
 import java.util.*
 
 class HolidayChecker(private val holidayDao: HolidayDao) : AnkoLogger {
@@ -25,19 +23,18 @@ class HolidayChecker(private val holidayDao: HolidayDao) : AnkoLogger {
         val nationalHolidaysOfMonth = holidayDao.findByYearAndMonth(year, realMonth)
         if (nationalHolidaysOfMonth.isNotEmpty()) {
             // Even there is no holiday of the month, day '0' is stored.
-            debug {"Holidays of $year-$realMonth already stored in DB"}
+            info {"Holidays of $year-$realMonth already stored in DB"}
             return nationalHolidaysOfMonth.contains(dayOfMonth)
         }
 
-        debug {"Get holidays of $year-$realMonth from data.go.kr and insert to db"}
-        val holidays = getNationalHolidaysFromDataProvider(year, realMonth)
-        holidayDao.insertAll(holidays)
-        return holidays.map { it.day }.contains(dayOfMonth)
-    }
-
-    private fun getNationalHolidaysFromDataProvider(year: Int, realMonth: Int): List<Holiday> {
-        val nationalHolidays = arrayListOf(Holiday(year, realMonth, 0))
-        // TODO: Get data from data.go.kr and add the data to nationalHolidays list
-        return nationalHolidays
+        info {"Get holidays of $year-$realMonth from data.go.kr and insert to db"}
+        return try {
+            val holidays = NationalHolidayProvider.get(year, realMonth)
+            holidayDao.insertAll(holidays)
+            holidays.map { it.day }.contains(dayOfMonth)
+        } catch (ex: Exception) {
+            error { ex }
+            false
+        }
     }
 }
