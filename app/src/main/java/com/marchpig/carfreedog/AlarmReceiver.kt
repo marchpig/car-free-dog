@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import com.marchpig.carfreedog.data.AppDatabase
 import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 class AlarmReceiver : BroadcastReceiver(), AnkoLogger {
@@ -35,7 +36,7 @@ class AlarmReceiver : BroadcastReceiver(), AnkoLogger {
             }
             Constants.ACTION_NOTIFY_DAY_ALARM -> {
                 if (preference.getBoolean(Constants.DAY_ALARM, Constants.DAY_ALARM_DEFAULT)) {
-                    notifyDayAlarm(context)
+                    notifyDayAlarm(context, dayAlarmTime)
                 }
                 registerAlarm(context, preAlarmTime, dayAlarmTime)
             }
@@ -69,10 +70,12 @@ class AlarmReceiver : BroadcastReceiver(), AnkoLogger {
         NotificationManagerCompat.from(context).notify(Constants.PRE_ALARM_ID, mBuilder.build())
     }
 
-    private fun notifyDayAlarm(context: Context) {
+    private fun notifyDayAlarm(context: Context, nextDayAlarmTime: Calendar) {
+        val simpleDateFormat = SimpleDateFormat("MMM d일 EEE요일", Locale.KOREA)
         val mBuilder = NotificationCompat.Builder(context)
                 .setContentTitle(context.resources.getString(R.string.noti_title_day_alarm))
-                .setContentText(context.resources.getString(R.string.noti_text_day_alarm))
+                .setContentText("${context.resources.getString(R.string.noti_text_day_alarm)} " +
+                        "(다음 10부제: ${simpleDateFormat.format(nextDayAlarmTime.time)})")
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setVibrate(longArrayOf(0, 500, 500, 500, 500))
                 .setLights(Color.BLUE, 3000, 3000)
