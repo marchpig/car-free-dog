@@ -62,7 +62,7 @@ class AlarmReceiver : BroadcastReceiver(), AnkoLogger {
         val mBuilder = NotificationCompat.Builder(context)
                 .setContentTitle(context.resources.getString(R.string.noti_title_pre_alarm))
                 .setContentText(context.resources.getString(R.string.noti_text_pre_alarm))
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setVibrate(longArrayOf(0, 500, 500, 500, 500))
                 .setLights(Color.BLUE, 3000, 3000)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
@@ -76,7 +76,7 @@ class AlarmReceiver : BroadcastReceiver(), AnkoLogger {
                 .setContentTitle(context.resources.getString(R.string.noti_title_day_alarm))
                 .setContentText("${context.resources.getString(R.string.noti_text_day_alarm)} " +
                         "(다음 10부제: ${simpleDateFormat.format(nextDayAlarmTime.time)})")
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setVibrate(longArrayOf(0, 500, 500, 500, 500))
                 .setLights(Color.BLUE, 3000, 3000)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
