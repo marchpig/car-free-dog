@@ -93,16 +93,4 @@
         android:layout_marginStart="36dp"
         android:text="" />
 
-    <TextView
-        android:id="@+id/githubLinkTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/alarmHolidaySwitch"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/alarmHolidaySwitch"
-        android:layout_marginBottom="25dp"
-        android:text="Github"
-        android:textColor="?attr/colorPrimaryDark"
-        android:textStyle="italic" />
-
 </RelativeLayout>
