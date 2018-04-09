@@ -24,6 +24,15 @@ class AlarmSettings(private val preference: SharedPreferences,
                     Constants.ALARM_HOLIDAY,
                     Constants.ALARM_HOLIDAY_DEFAULT
             )
+            val roundNumber = preference.getInt(
+                    Constants.ROUND_NUMBER,
+                    Constants.ROUND_NUMBER_DEFAULT
+            )
+            if (roundNumber == Constants.ROUND_NUMBER_TEN) {
+                roundTenRadioButton.isChecked = true
+            } else {
+                roundFiveRadioButton.isChecked = true
+            }
         }
     }
 
@@ -61,6 +70,11 @@ class AlarmSettings(private val preference: SharedPreferences,
                 it.putBoolean(Constants.PRE_ALARM, preAlarmSwitch.isChecked)
                 it.putBoolean(Constants.DAY_ALARM, dayAlarmSwitch.isChecked)
                 it.putBoolean(Constants.ALARM_HOLIDAY, alarmHolidaySwitch.isChecked)
+                if (roundTenRadioButton.isChecked) {
+                    it.putInt(Constants.ROUND_NUMBER, Constants.ROUND_NUMBER_TEN)
+                } else {
+                    it.putInt(Constants.ROUND_NUMBER, Constants.ROUND_NUMBER_FIVE)
+                }
                 it.apply()
             }
         }

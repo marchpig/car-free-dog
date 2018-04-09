@@ -31,12 +31,20 @@ class AlarmReceiver : BroadcastReceiver(), AnkoLogger {
             }
             Constants.ACTION_NOTIFY_PRE_ALARM -> {
                 if (preference.getBoolean(Constants.PRE_ALARM, Constants.PRE_ALARM_DEFAULT)) {
-                    notifyPreAlarm(context)
+                    val roundNumber = preference.getInt(
+                            Constants.ROUND_NUMBER,
+                            Constants.ROUND_NUMBER_DEFAULT
+                    )
+                    notifyPreAlarm(context, roundNumber)
                 }
             }
             Constants.ACTION_NOTIFY_DAY_ALARM -> {
                 if (preference.getBoolean(Constants.DAY_ALARM, Constants.DAY_ALARM_DEFAULT)) {
-                    notifyDayAlarm(context, dayAlarmTime)
+                    val roundNumber = preference.getInt(
+                            Constants.ROUND_NUMBER,
+                            Constants.ROUND_NUMBER_DEFAULT
+                    )
+                    notifyDayAlarm(context, roundNumber, dayAlarmTime)
                 }
                 registerAlarm(context, preAlarmTime, dayAlarmTime)
             }
@@ -58,10 +66,10 @@ class AlarmReceiver : BroadcastReceiver(), AnkoLogger {
         return dayAlarmTime
     }
 
-    private fun notifyPreAlarm(context: Context) {
+    private fun notifyPreAlarm(context: Context, roundNumber: Int) {
         val mBuilder = NotificationCompat.Builder(context)
-                .setContentTitle(context.resources.getString(R.string.noti_title_pre_alarm))
-                .setContentText(context.resources.getString(R.string.noti_text_pre_alarm))
+                .setContentTitle("내일 ${roundNumber}부제")
+                .setContentText("내일은 ${roundNumber}부제 날입니다!")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setVibrate(longArrayOf(0, 500, 500, 500, 500))
                 .setLights(Color.BLUE, 3000, 3000)
@@ -70,12 +78,12 @@ class AlarmReceiver : BroadcastReceiver(), AnkoLogger {
         NotificationManagerCompat.from(context).notify(Constants.PRE_ALARM_ID, mBuilder.build())
     }
 
-    private fun notifyDayAlarm(context: Context, nextDayAlarmTime: Calendar) {
+    private fun notifyDayAlarm(context: Context, roundNumber: Int, nextDayAlarmTime: Calendar) {
         val simpleDateFormat = SimpleDateFormat("MMM d일 EEE요일", Locale.KOREA)
         val mBuilder = NotificationCompat.Builder(context)
-                .setContentTitle(context.resources.getString(R.string.noti_title_day_alarm))
-                .setContentText("${context.resources.getString(R.string.noti_text_day_alarm)} " +
-                        "(다음 10부제: ${simpleDateFormat.format(nextDayAlarmTime.time)})")
+                .setContentTitle("오늘 ${roundNumber}부제")
+                .setContentText("오늘은 ${roundNumber}부제 날입니다! (다음 ${roundNumber}부제: " +
+                        "${simpleDateFormat.format(nextDayAlarmTime.time)})")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setVibrate(longArrayOf(0, 500, 500, 500, 500))
                 .setLights(Color.BLUE, 3000, 3000)

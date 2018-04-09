@@ -21,6 +21,10 @@ class AlarmTimer(
             Constants.ALARM_HOLIDAY,
             Constants.ALARM_HOLIDAY_DEFAULT
     )
+    private val roundNumber = preference.getInt(
+            Constants.ROUND_NUMBER,
+            Constants.ROUND_NUMBER_DEFAULT
+    )
 
     fun getNextTime(calendar: Calendar): Calendar? {
         if (carNumber == -1) {
@@ -41,12 +45,14 @@ class AlarmTimer(
         val hourOfDay = calendar.get(Calendar.HOUR_OF_DAY)
         val minute = calendar.get(Calendar.MINUTE)
 
-        if (dayOfMonth % 10 != carNumber || isHourAndMinuteEqualOrPast(hourOfDay, minute)) {
-            val diff = carNumber - dayOfMonth % 10
-            val dayToBeAdded = if (diff > 0) diff else diff + 10
+        if (dayOfMonth % roundNumber != carNumber % roundNumber
+                || isHourAndMinuteEqualOrPast(hourOfDay, minute)) {
+            val diff = carNumber - dayOfMonth % roundNumber
+            val dayToBeAdded = if (diff > 0) diff else diff + roundNumber
             calendar.add(Calendar.DAY_OF_MONTH, dayToBeAdded)
             if (month != calendar.get(Calendar.MONTH)) {
-                calendar.set(Calendar.DAY_OF_MONTH, if (carNumber == 0) 10 else carNumber)
+                val remainder = carNumber % roundNumber
+                calendar.set(Calendar.DAY_OF_MONTH, if (remainder == 0) roundNumber else remainder)
             }
         }
 

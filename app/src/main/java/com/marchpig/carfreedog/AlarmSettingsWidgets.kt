@@ -8,5 +8,7 @@ data class AlarmSettingsWidgets(
         val dayAlarmSwitch: Switch,
         val alarmHolidaySwitch: Switch,
         val preAlarmButton: Button,
-        val dayAlarmButton: Button
+        val dayAlarmButton: Button,
+        val roundFiveRadioButton: RadioButton,
+        val roundTenRadioButton: RadioButton
 )

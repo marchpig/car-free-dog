@@ -23,7 +23,9 @@ class MainActivity : AppCompatActivity() {
                 dayAlarmSwitch,
                 alarmHolidaySwitch,
                 preAlarmButton,
-                dayAlarmButton
+                dayAlarmButton,
+                roundFiveRadioButton,
+                roundTenRadioButton
         )
         val carNumbers = resources.getStringArray(R.array.car_number_array)
         alarmSettings = AlarmSettings(preference, alarmSettingsWidgets, carNumbers)

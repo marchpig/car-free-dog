@@ -12,6 +12,7 @@ object Constants {
     const val DAY_ALARM_HOUR = "dayAlarmHour"
     const val DAY_ALARM_MINUTE = "dayAlarmMinute"
     const val ALARM_HOLIDAY = "alarmHoliday"
+    const val ROUND_NUMBER = "roundNumber"
 
     const val CAR_NUMBER_DEFAULT = 0
     const val PRE_ALARM_DEFAULT = true
@@ -21,6 +22,9 @@ object Constants {
     const val DAY_ALARM_HOUR_DEFAULT = 7
     const val DAY_ALARM_MINUTE_DEFAULT = 0
     const val ALARM_HOLIDAY_DEFAULT = false
+    const val ROUND_NUMBER_FIVE = 5
+    const val ROUND_NUMBER_TEN = 10
+    const val ROUND_NUMBER_DEFAULT = ROUND_NUMBER_TEN
 
     const val PRE_ALARM_ID = 0
     const val DAY_ALARM_ID = 1
