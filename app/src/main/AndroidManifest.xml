@@ -31,22 +31,6 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
-        <activity
-            android:name=".GhostActivity"
-            android:excludeFromRecents="true"
-            android:taskAffinity=":ghost"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
-        </activity>
-
-        <receiver
-            android:name=".GhostReceiver"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>
