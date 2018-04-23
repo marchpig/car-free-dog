@@ -102,7 +102,7 @@ class AlarmReceiver : BroadcastReceiver(), AnkoLogger {
                     Intent(Constants.ACTION_NOTIFY_PRE_ALARM),
                     PendingIntent.FLAG_UPDATE_CURRENT
             ).let {
-                AlarmManagerCompat.setExact(
+                AlarmManagerCompat.setExactAndAllowWhileIdle(
                         alarmManager,
                         AlarmManager.RTC_WAKEUP,
                         preAlarmTime.timeInMillis,
@@ -118,7 +118,7 @@ class AlarmReceiver : BroadcastReceiver(), AnkoLogger {
                 Intent(Constants.ACTION_NOTIFY_DAY_ALARM),
                 PendingIntent.FLAG_UPDATE_CURRENT
         ).let {
-            AlarmManagerCompat.setExact(
+            AlarmManagerCompat.setExactAndAllowWhileIdle(
                     alarmManager,
                     AlarmManager.RTC_WAKEUP,
                     dayAlarmTime.timeInMillis,
