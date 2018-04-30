@@ -24,6 +24,15 @@ class AlarmTimerTest {
 
     @Before
     fun before() {
+        `when`(holidayDao.findByYearAndMonth(2017, 12))
+                .thenReturn(arrayListOf(0, 25))
+        `when`(holidayDao.findByYearAndMonth(2018, 1))
+                .thenReturn(arrayListOf(0, 1))
+        `when`(holidayDao.findByYearAndMonth(2018, 2))
+                .thenReturn(arrayListOf(0, 15, 16, 17))
+        `when`(holidayDao.findByYearAndMonth(2018, 3))
+                .thenReturn(arrayListOf(0, 1))
+
         `when`(prefNotSet.getInt(eq(Constants.CAR_NUMBER), anyInt()))
                 .thenReturn(-1)
 
